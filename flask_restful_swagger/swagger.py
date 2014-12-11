@@ -477,6 +477,11 @@ def add_model(model_class):
 def deduce_swagger_type(python_type_or_object, nested_type=None):
     import inspect
 
+    if inspect.isfunction(python_type_or_object) and \
+            hasattr(python_type_or_object, '__swagger_type__'):
+      # custom RequestParser type
+      return {'type': python_type_or_object.__swagger_type__}
+
     if inspect.isclass(python_type_or_object):
         predicate = issubclass
     else:
