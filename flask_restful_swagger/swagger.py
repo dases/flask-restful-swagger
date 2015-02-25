@@ -398,6 +398,16 @@ def operation(**kwargs):
   return inner
 
 
+def swagger_type(type_):
+    """Decorator to add __swagger_type__ property to flask-restful custom input
+    type functions
+    """
+    def inner(f):
+        f.__swagger_type__ = type_
+        return f
+    return inner
+
+
 def model(c=None, *args, **kwargs):
   add_model(c)
   return c
